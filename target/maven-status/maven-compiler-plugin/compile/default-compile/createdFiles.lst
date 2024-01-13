@@ -7,7 +7,9 @@ logica\Controladora.class
 igu\CargarDatos$1.class
 logica\Estudiante_.class
 igu\Principal.class
+persistencia\EstudianteJpaController.class
 logica\Apoderado_.class
+persistencia\ApoderadoJpaController.class
 persistencia\exceptions\NonexistentEntityException.class
 persistencia\exceptions\PreexistingEntityException.class
 persistencia\ControladoraPersistencia.class
