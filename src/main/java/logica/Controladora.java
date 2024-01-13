@@ -1,11 +1,12 @@
 
 package logica;
 
+import java.util.List;
 import persistencia.ControladoraPersistencia;
 
 public class Controladora {
     
-    ControladoraPersistencia controlPeris = new ControladoraPersistencia();
+    ControladoraPersistencia controlPersis = new ControladoraPersistencia();
 
     public void guardar(String nombreest, String apellido, String observaciones, String rutDigito, String alergico, String curso, String atencionEsp, Integer rut, String nombreApoderado, String Telefono) {
 
@@ -28,11 +29,19 @@ public class Controladora {
           estudiante.setUnApoderado(apoderado);
           
           
-          controlPeris.guardar(apoderado, estudiante);
+          controlPersis.guardar(apoderado, estudiante);
           
           
     
     }
+
+    public List<Estudiante> traerEstudiante() {
+    
+     return controlPersis.traerEstudiantes();
+    
+    }
+
+
      
     
     

@@ -1,6 +1,7 @@
 
 package persistencia;
 
+import java.util.List;
 import logica.Apoderado;
 import logica.Estudiante;
 
@@ -21,6 +22,10 @@ public class ControladoraPersistencia {
         
         
         
+    }
+
+    public List<Estudiante> traerEstudiantes() {
+        return estudianteJpa.findEstudianteEntities();
     }
     
     
