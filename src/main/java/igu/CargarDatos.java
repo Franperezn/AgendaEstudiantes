@@ -1,9 +1,15 @@
 
 package igu;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
+import logica.Controladora;
 
 public class CargarDatos extends javax.swing.JFrame {
+    
+    Controladora control = new Controladora();
 
     public CargarDatos() {
+        //control = new Controladora();
         initComponents();
     }
 
@@ -176,6 +182,11 @@ public class CargarDatos extends javax.swing.JFrame {
 
         btnGuardar.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -243,6 +254,36 @@ public class CargarDatos extends javax.swing.JFrame {
         cmbAlergia.setSelectedIndex(0);
 
     }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+       
+        String nombreest = txtNombre.getText();
+        String apellido = txtApellido.getText();
+        String observaciones = txtObservaciones.getText();
+        String rutDigito= txtDv.getText();
+        String alergico = (String) cmbAlergia.getSelectedItem();
+        String curso = (String) cmbCurso.getSelectedItem();
+        String atencionEsp = (String) cmbAtEsp.getSelectedItem();
+        String numRut = txtRut.getText();
+        Integer rut = Integer.parseInt(numRut);
+        String nombreApoderado = txtNombreApoderado.getText();
+        String Telefono = txtTelefono.getText();
+        
+  
+      
+        
+        control.guardar(nombreest, apellido, observaciones,rutDigito, alergico,curso, atencionEsp, rut, nombreApoderado,Telefono );
+      
+        
+        JOptionPane optionPane = new JOptionPane ("Se guardó correctamente");
+        optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
+        JDialog dialog = optionPane.createDialog("Guardado Existoso");
+        dialog.setAlwaysOnTop(true);
+        dialog.setVisible(true);
+        
+      
+      
+    }//GEN-LAST:event_btnGuardarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
