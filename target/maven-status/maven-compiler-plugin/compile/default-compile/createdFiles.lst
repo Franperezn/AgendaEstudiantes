@@ -1,5 +1,14 @@
-igu\Principal.class
+logica\Apoderado.class
 igu\Principal$1.class
-com\mycompany\agendaestudiantes\Agendaestudiantes.class
-igu\CargarDatos$1.class
 igu\CargarDatos.class
+logica\Estudiante.class
+com\mycompany\agendaestudiantes\Agendaestudiantes.class
+logica\Controladora.class
+igu\CargarDatos$1.class
+logica\Estudiante_.class
+igu\Principal.class
+logica\Apoderado_.class
+persistencia\exceptions\NonexistentEntityException.class
+persistencia\exceptions\PreexistingEntityException.class
+persistencia\ControladoraPersistencia.class
+persistencia\exceptions\IllegalOrphanException.class
