@@ -1,6 +1,8 @@
 
 package igu;
 import java.util.List;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import logica.Controladora;
 import logica.Estudiante;
@@ -139,9 +141,52 @@ public class VerDatos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        // TODO add your handling code here:
+        //verificar que la tabla no este vacia
+        if (tablaEstudiante.getRowCount() >0){
+         //verificar que se haya selccionado un registro
+         if (tablaEstudiante.getSelectedRow()!=-1){
+             
+             
+             int id_estudiante = Integer.parseInt(String.valueOf(tablaEstudiante.getValueAt(tablaEstudiante.getSelectedRow(), 0))) ;
+             
+             //llamar método borrar
+             control.borrarEstudiante(id_estudiante);
+              //Mostrar mensaje
+             mostrarMensaje("Estudiante eliminado correctamente","Info","Eliminación Estudiante");
+             cargarTabla();
+                
+         } else {
+             mostrarMensaje("No seleccionó ningun estudiante","Error","Error al eliminar");
+         
+         }
+                 
+     } else{
+        mostrarMensaje("No hay datos para elimianr","Error","Error al eliminar");
+        }
+        
     }//GEN-LAST:event_btnEliminarActionPerformed
-
+    
+    public void mostrarMensaje(String mensaje, String tipo, String titulo ){
+        
+       JOptionPane optionPane = new JOptionPane (mensaje);
+       
+       if(tipo.equals("Info")){
+           optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
+           
+       }
+       else if(tipo.equals("Error")){
+           optionPane.setMessageType(JOptionPane.ERROR_MESSAGE);
+       
+       }
+        JDialog dialog = optionPane.createDialog(titulo);
+        dialog.setAlwaysOnTop(true);
+        dialog.setVisible(true); 
+    }
+    
+    
+    
+    
+    
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
        cargarTabla();
     }//GEN-LAST:event_formWindowOpened

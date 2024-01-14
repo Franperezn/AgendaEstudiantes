@@ -41,6 +41,10 @@ public class Controladora {
     
     }
 
+    public void borrarEstudiante(int id_estudiante) {
+        controlPersis.borrarEstudiante(id_estudiante);
+    }
+
 
      
     
