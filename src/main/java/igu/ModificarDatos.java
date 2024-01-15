@@ -3,14 +3,19 @@ package igu;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import logica.Controladora;
+import logica.Estudiante;
 
-public class CargarDatos extends javax.swing.JFrame {
+public class ModificarDatos extends javax.swing.JFrame {
     
-    Controladora control = new Controladora();
+    Controladora control = null;
+    int id_estudiante;
+    Estudiante est;
 
-    public CargarDatos() {
-        //control = new Controladora();
+    public ModificarDatos(int id_estudiante) {
+        control = new Controladora();
+        //this.id_estudiante = id_estudiante;
         initComponents();
+        cargarDatos(id_estudiante);
     }
 
     @SuppressWarnings("unchecked")
@@ -48,7 +53,7 @@ public class CargarDatos extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Dialog", 0, 48)); // NOI18N
-        jLabel1.setText("Registrar Estudiante");
+        jLabel1.setText("Modificar Estudiante");
 
         jLabel2.setText("Rut:");
 
@@ -182,7 +187,7 @@ public class CargarDatos extends javax.swing.JFrame {
         });
 
         btnGuardar.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        btnGuardar.setText("Guardar");
+        btnGuardar.setText("Guardar Cambios");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGuardarActionPerformed(evt);
@@ -203,19 +208,19 @@ public class CargarDatos extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(39, 39, 39)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(57, 57, 57)
                         .addComponent(jLabel1))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(53, 53, 53)
-                        .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(33, 33, 33)
-                        .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(29, 29, 29)
-                        .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(56, Short.MAX_VALUE))
+                        .addGap(39, 39, 39)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(89, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -225,10 +230,10 @@ public class CargarDatos extends javax.swing.JFrame {
                 .addGap(56, 56, 56)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLimpiar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnVolver))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnVolver, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnLimpiar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(17, 17, 17))
         );
 
@@ -239,7 +244,7 @@ public class CargarDatos extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(141, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -268,6 +273,7 @@ public class CargarDatos extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
        
+        //Datos estudiante
         String nombreest = txtNombre.getText();
         String apellido = txtApellido.getText();
         String observaciones = txtObservaciones.getText();
@@ -275,32 +281,31 @@ public class CargarDatos extends javax.swing.JFrame {
         String alergico = (String) cmbAlergia.getSelectedItem();
         String curso = (String) cmbCurso.getSelectedItem();
         String atencionEsp = (String) cmbAtEsp.getSelectedItem();
-        String numRut = txtRut.getText();
-        Integer rut = Integer.parseInt(numRut);
+        Integer rut = Integer.valueOf(txtRut.getText()) ;
+        //String numrut = txtRut.getText();
+        //Integer rut = Integer.parseInt(numRut);
+        
+        //datos apoderado
         String nombreApoderado = txtNombreApoderado.getText();
         String Telefono = txtTelefono.getText();
         
-  
-      
+        control.modificarEstudiante(est,rut, rutDigito,nombreest,apellido, curso,alergico, atencionEsp,observaciones,nombreApoderado,Telefono);
         
-        control.guardar(nombreest, apellido, observaciones,rutDigito, alergico,curso, atencionEsp, rut, nombreApoderado,Telefono );
-      
+        //mensaje confirmación 
+        mostrarMensaje("Edición realizada correctamente", "Info", "Edición Correcta");
         
-        JOptionPane optionPane = new JOptionPane ("Se guardó correctamente");
-        optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
-        JDialog dialog = optionPane.createDialog("Guardado Existoso");
-        dialog.setAlwaysOnTop(true);
-        dialog.setVisible(true);
-        
-      
-      
+        VerDatos pantalla = new VerDatos();
+        pantalla.setVisible(true);
+        pantalla.setLocationRelativeTo(null);
+        this.dispose();
+           
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-      Principal pantalla = new Principal();
-      pantalla.setVisible(true);
-      pantalla.setLocationRelativeTo(null);  
-      this.dispose();
+        VerDatos pantalla = new VerDatos();
+        pantalla.setVisible(true);
+        pantalla.setLocationRelativeTo(null);
+        this.dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
 
 
@@ -333,4 +338,63 @@ public class CargarDatos extends javax.swing.JFrame {
     private javax.swing.JTextField txtRut;
     private javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
+
+    private void cargarDatos(int id_estudiante) {
+        
+     this.est = control.traerEstudiante(id_estudiante);
+     
+     
+     
+        ///REVISAR
+        txtRut.setText(String.valueOf(est.getRut()));
+        txtDv.setText(est.getRutDigito());
+        txtNombre.setText(est.getNombre());
+        txtApellido.setText(est.getApellido());
+        txtNombreApoderado.setText(est.getUnApoderado().getNombre());
+        txtTelefono.setText(est.getUnApoderado().getTelefono());
+        txtObservaciones.setText(est.getObservaciones());
+        cmbAtEsp.setSelectedIndex(0);
+        cmbCurso.setSelectedIndex(0);
+        cmbAlergia.setSelectedIndex(0);
+        
+        if(est.getAlergico().equals("SI")){
+            cmbAlergia.setSelectedIndex(1);
+        }
+        else if (est.getAlergico().equals("NO")){
+            cmbAlergia.setSelectedIndex(2);
+        }
+        if(est.getAtencionEspecial().equals("SI")){
+            cmbAtEsp.setSelectedIndex(1);
+        }
+        else if (est.getAtencionEspecial().equals("NO")){
+            cmbAtEsp.setSelectedIndex(2);
+        }
+        if(est.getCurso().equals("PK")){
+            cmbCurso.setSelectedIndex(1);
+        }
+        else if (est.getCurso().equals("K")){
+           cmbCurso.setSelectedIndex(2);
+        }
+     
+     
+     
+     
+    }
+    
+        public void mostrarMensaje(String mensaje, String tipo, String titulo ){
+        
+       JOptionPane optionPane = new JOptionPane (mensaje);
+       
+       if(tipo.equals("Info")){
+           optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
+           
+       }
+       else if(tipo.equals("Error")){
+           optionPane.setMessageType(JOptionPane.ERROR_MESSAGE);
+       
+       }
+        JDialog dialog = optionPane.createDialog(titulo);
+        dialog.setAlwaysOnTop(true);
+        dialog.setVisible(true); 
+    }
 }

@@ -38,6 +38,30 @@ public class ControladoraPersistencia {
             Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    public Estudiante traerEstudiante(int id_estudiante) {
+       return  estudianteJpa.findEstudiante(id_estudiante);
+    }
+
+    public void modificarEstudiante(Estudiante est) {
+        try {
+            estudianteJpa.edit(est);
+        } catch (Exception ex) {
+            Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public Apoderado traerApoderado(int id_apoderado) {
+        return apoderadoJpa.findApoderado(id_apoderado);
+    }
+
+    public void modificarApoderado(Apoderado apoderado) {
+        try {
+            apoderadoJpa.edit(apoderado);
+        } catch (Exception ex) {
+            Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
     
 }
