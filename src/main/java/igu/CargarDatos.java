@@ -1,16 +1,18 @@
-
 package igu;
+
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import logica.Controladora;
 
 public class CargarDatos extends javax.swing.JFrame {
-    
+
     Controladora control = new Controladora();
 
     public CargarDatos() {
         //control = new Controladora();
         initComponents();
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
     @SuppressWarnings("unchecked")
@@ -277,67 +279,60 @@ public class CargarDatos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-       
+
         String nombreest = txtNombre.getText();
         String apellido = txtApellido.getText();
         String observaciones = txtObservaciones.getText();
-        String rutDigito= txtDv.getText();
+        String rutDigito = txtDv.getText();
         String alergico = (String) cmbAlergia.getSelectedItem();
         String curso = (String) cmbCurso.getSelectedItem();
         String atencionEsp = (String) cmbAtEsp.getSelectedItem();
-        String numRut= txtRut.getText();
+        String numRut = txtRut.getText();
         //String numRut = txtRut.getText();
         //Integer rut = Integer.parseInt(numRut);
         String nombreApoderado = txtNombreApoderado.getText();
         String telefono = txtTelefono.getText();
-        
-        
+
         //Validar campos vacíos
         if (nombreest.isEmpty() || apellido.isEmpty() || observaciones.isEmpty() || rutDigito.isEmpty()
-        || alergico == null || curso == null || atencionEsp == null || numRut.isEmpty()
-        || nombreApoderado.isEmpty() || telefono.isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Por favor, completa todos los campos obligatorios", "Error",
-        JOptionPane.ERROR_MESSAGE);
-         return;
+                || alergico == null || curso == null || atencionEsp == null || numRut.isEmpty()
+                || nombreApoderado.isEmpty() || telefono.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Por favor, completa todos los campos obligatorios", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
         }
-        
+
         // Validar que el campo Rut contenga solo números
         if (!numRut.matches("\\d+")) {
             JOptionPane.showMessageDialog(null, "El campo 'Rut' solo debe contener números", "Error",
                     JOptionPane.ERROR_MESSAGE);
             return;
         }
-        
+
         // Validar el formato del campo 'DV' (solo números del 1 al 9 o la letra 'k')
         if (!rutDigito.matches("[1-9kK]")) {
             JOptionPane.showMessageDialog(null, "El campo 'DV' solo debe contener números del 1 al 9 o la letra 'k'", "Error",
                     JOptionPane.ERROR_MESSAGE);
             return;
         }
-  
-         Integer rut = Integer.parseInt(numRut);
-        control.guardar(nombreest, apellido, observaciones,rutDigito, alergico,curso, atencionEsp, rut, nombreApoderado,telefono );
-      
-       
-        JOptionPane optionPane = new JOptionPane ("Se guardó correctamente");
+
+        Integer rut = Integer.parseInt(numRut);
+        control.guardar(nombreest, apellido, observaciones, rutDigito, alergico, curso, atencionEsp, rut, nombreApoderado, telefono);
+
+        JOptionPane optionPane = new JOptionPane("Se guardó correctamente");
         optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
         JDialog dialog = optionPane.createDialog("Guardado Existoso");
         dialog.setAlwaysOnTop(true);
         dialog.setVisible(true);
-        
-        
-        
-        
-      
-        
-      
+
+
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-      Principal pantalla = new Principal();
-      pantalla.setVisible(true);
-      pantalla.setLocationRelativeTo(null);  
-      this.dispose();
+        Principal pantalla = new Principal();
+        pantalla.setVisible(true);
+        pantalla.setLocationRelativeTo(null);
+        this.dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
 
 

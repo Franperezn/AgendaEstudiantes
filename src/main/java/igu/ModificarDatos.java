@@ -1,6 +1,7 @@
 
 package igu;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import logica.Controladora;
 import logica.Estudiante;
@@ -15,7 +16,9 @@ public class ModificarDatos extends javax.swing.JFrame {
         control = new Controladora();
         //this.id_estudiante = id_estudiante;
         initComponents();
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         cargarDatos(id_estudiante);
+        
     }
 
     @SuppressWarnings("unchecked")

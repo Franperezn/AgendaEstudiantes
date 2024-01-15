@@ -1,10 +1,13 @@
 
 package igu;
 
+import javax.swing.JFrame;
+
 public class Principal extends javax.swing.JFrame {
 
     public Principal() {
         initComponents();
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
     @SuppressWarnings("unchecked")
