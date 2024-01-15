@@ -44,6 +44,7 @@ public class CargarDatos extends javax.swing.JFrame {
         btnLimpiar = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
         btnVolver = new javax.swing.JButton();
+        jLabel12 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -196,6 +197,8 @@ public class CargarDatos extends javax.swing.JFrame {
             }
         });
 
+        jLabel12.setIcon(new javax.swing.ImageIcon("C:\\Users\\frper\\OneDrive\\Documentos\\NetBeansProjects\\Agendaestudiantes\\src\\image\\ninera.png")); // NOI18N
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -203,27 +206,34 @@ public class CargarDatos extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(39, 39, 39)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(57, 57, 57)
-                        .addComponent(jLabel1))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(53, 53, 53)
                         .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(33, 33, 33)
                         .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(29, 29, 29)
-                        .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(56, Short.MAX_VALUE))
+                        .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(39, 39, 39)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel12))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(134, 134, 134)
+                        .addComponent(jLabel1)))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(56, 56, 56)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(19, 19, 19)
+                .addComponent(jLabel1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(43, 43, 43)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(58, 58, 58)
+                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -239,7 +249,7 @@ public class CargarDatos extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(141, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -275,24 +285,51 @@ public class CargarDatos extends javax.swing.JFrame {
         String alergico = (String) cmbAlergia.getSelectedItem();
         String curso = (String) cmbCurso.getSelectedItem();
         String atencionEsp = (String) cmbAtEsp.getSelectedItem();
-        String numRut = txtRut.getText();
-        Integer rut = Integer.parseInt(numRut);
+        String numRut= txtRut.getText();
+        //String numRut = txtRut.getText();
+        //Integer rut = Integer.parseInt(numRut);
         String nombreApoderado = txtNombreApoderado.getText();
-        String Telefono = txtTelefono.getText();
+        String telefono = txtTelefono.getText();
         
+        
+        //Validar campos vacíos
+        if (nombreest.isEmpty() || apellido.isEmpty() || observaciones.isEmpty() || rutDigito.isEmpty()
+        || alergico == null || curso == null || atencionEsp == null || numRut.isEmpty()
+        || nombreApoderado.isEmpty() || telefono.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Por favor, completa todos los campos obligatorios", "Error",
+        JOptionPane.ERROR_MESSAGE);
+         return;
+        }
+        
+        // Validar que el campo Rut contenga solo números
+        if (!numRut.matches("\\d+")) {
+            JOptionPane.showMessageDialog(null, "El campo 'Rut' solo debe contener números", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        // Validar el formato del campo 'DV' (solo números del 1 al 9 o la letra 'k')
+        if (!rutDigito.matches("[1-9kK]")) {
+            JOptionPane.showMessageDialog(null, "El campo 'DV' solo debe contener números del 1 al 9 o la letra 'k'", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
   
+         Integer rut = Integer.parseInt(numRut);
+        control.guardar(nombreest, apellido, observaciones,rutDigito, alergico,curso, atencionEsp, rut, nombreApoderado,telefono );
       
-        
-        control.guardar(nombreest, apellido, observaciones,rutDigito, alergico,curso, atencionEsp, rut, nombreApoderado,Telefono );
-      
-        
+       
         JOptionPane optionPane = new JOptionPane ("Se guardó correctamente");
         optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
         JDialog dialog = optionPane.createDialog("Guardado Existoso");
         dialog.setAlwaysOnTop(true);
         dialog.setVisible(true);
         
+        
+        
+        
       
+        
       
     }//GEN-LAST:event_btnGuardarActionPerformed
 
@@ -314,6 +351,7 @@ public class CargarDatos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
